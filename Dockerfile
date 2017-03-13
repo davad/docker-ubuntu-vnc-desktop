@@ -1,19 +1,17 @@
-FROM ubuntu:14.04
+FROM ubuntu
 MAINTAINER Doro Wu <fcwu.tw@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV HOME /home/ubuntu
 
-RUN sed -i 's#http://archive.ubuntu.com/#http://tw.archive.ubuntu.com/#' /etc/apt/sources.list
-
 # built-in packages
 RUN apt-get update \
-    && apt-get install -y --force-yes --no-install-recommends software-properties-common curl \
-    && sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list" \
-    && curl -SL http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key | sudo apt-key add - \
+    && apt-get install -y --no-install-recommends software-properties-common curl \
+    && echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list \
+    && curl -SL http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key | apt-key add - \
     && add-apt-repository ppa:fcwu-tw/ppa \
     && apt-get update \
-    && apt-get install -y --force-yes --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
         supervisor \
         openssh-server pwgen sudo vim-tiny \
         net-tools \
